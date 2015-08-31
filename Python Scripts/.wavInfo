@@ -6,6 +6,7 @@ import wave
 import struct
 import sys
 import sliceWav
+import bpm
 
 f = str(sys.argv[1])
 
