@@ -1,0 +1,8 @@
+#!/usr/bin/python
+
+import subprocess as caller
+
+f = str(raw_input('Audio file: \n'))
+
+caller.call(['./.wavInfo',f])
+

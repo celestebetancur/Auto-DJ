@@ -267,13 +267,30 @@ public class Drum extends CHmUsiCK
     
     public void drum (Tuple t)
     {        
-        spork~bassDrum(t.k);
-        spork~hihat(t.h);
-        spork~snare(t.s);
-        while(true) second => now;
+        while(true)
+        {
+            for(0 => int i; i < t.k.cap(); i++)
+            {
+                if (t.k[i] == 1)
+                {
+                    t.kgp[i] => Kick[bdSound].gain;
+                    0 => Kick[bdSound].pos;
+                }
+                if (t.s[i] == 1)
+                {
+                    t.sgp[i] => Snare[snSound].gain;
+                    0 => Snare[snSound].pos;
+                }
+                if (t.h[i] == 1)
+                {
+                    t.hgp[i] => HH[hhSound].gain;
+                    0 => HH[hhSound].pos;
+                }
+                Dur(convert(TEMPO),Division) => now;
+            }
+        }
     }
-    
-    
+
     //——————————————————Basic Functions————————————————————//
     private int[] bassDrum (int k[])
     {        

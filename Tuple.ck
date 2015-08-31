@@ -1,8 +1,8 @@
 public class Tuple
 {
-    int k[0];
-    int s[0];
-    int h[0];
+    int k[0]; float kgp[0];
+    int s[0]; float sgp[0]; 
+    int h[0]; float hgp[0];
     
     [1.0,0.32,0.35,0.34,0.75,0.2,0.47,0.17] @=> float kCorpus[];
     [0.32,0.36,0.37,0.16,0.93,0.2,0.18,0.32] @=> float sCorpus[];
@@ -14,7 +14,27 @@ public class Tuple
         s @=> this.s;
         h @=> this.h;
     }
-    
+    public void tupleKGP(int k[], float kgp[])
+    {
+        k @=> this.k;
+        kgp @=> this.kgp;
+    }
+    public void tupleSGP(int s[], float sgp[])
+    {
+        s @=> this.s;
+        sgp @=> this.sgp;
+    }
+    public void tupleHGP(int h[], float hgp[])
+    {
+        h @=> this.h;
+        hgp @=> this.hgp;
+    }
+    public Tuple tupleGP(Tuple k, Tuple s, Tuple h)
+    {
+        tupleKGP(k.k,k.kgp);
+        tupleSGP(s.s,s.sgp);
+        tupleHGP(h.h,h.hgp);
+    }
     public Tuple comparative(float percent, Tuple a, Tuple b)
     {
         int k[0]; int s[0]; int h[0];

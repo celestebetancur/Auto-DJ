@@ -10,6 +10,8 @@ public class CHmUsiCK extends Chubgraph
     
     MASTER => Master.gain;
     
+    8 => int cap;
+    
     public static float tempo(float t)
     {
         t => TEMPO;
@@ -222,6 +224,55 @@ public class CHmUsiCK extends Chubgraph
             newPattern @=> pattern;
         }
         return pattern;
+    }
+    public float[] rotatef(float pattern[])
+    {
+        float newPattern[pattern.cap()];
+        
+        pattern[pattern.cap()-1] => newPattern[0];
+        
+        for(0 => int i; i < (pattern.cap()-1); i++)
+        {
+            pattern[i] => newPattern[i+1];
+        }
+        return newPattern;
+    }
+    public float[] rotatef(float pattern[], int move)
+    {
+        float newPattern[pattern.cap()];
+        
+        repeat(move)
+        {
+            rotatef(pattern) @=> newPattern;
+            newPattern @=> pattern;
+        }
+        return pattern;
+    }
+    public float[] gainProfile(int onBeat)
+    {
+        float toReturn[cap];
+        
+        if(onBeat <= 0) <<<"onBeats are positive integers">>>;
+        
+        else
+        { 
+            for(0 => int i; i < cap; i++) //set cap parameter
+            {
+                if(i % onBeat == 0) 
+                {    
+                    1.0 => toReturn[i];
+                }
+                else 
+                {
+                    Math.random2f(0.4,0.6) => toReturn[i];
+                }
+            }
+        }
+        return toReturn;
+    }
+    public float[] gainProfile(int onBeat, int move)
+    {        
+        return rotatef(gainProfile(onBeat),move);
     }
     private dur convert(float beat)
     {

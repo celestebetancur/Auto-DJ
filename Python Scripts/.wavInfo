@@ -1,0 +1,50 @@
+#!/usr/bin/env python
+
+#This script displays all that wave library can display
+
+import wave 
+import struct
+import sys
+import sliceWav
+
+f = str(sys.argv[1])
+
+w = wave.open(f,'r')
+
+chan = w.getnchannels()
+smpleWidth = w.getsampwidth()
+frameRate = w.getframerate()
+numFrames = w.getnframes()
+length = numFrames/float(frameRate)
+compType = w.getcomptype()
+compName = w.getcompname()
+
+print "\nChannels %i" %chan
+print "Sample Width %i" %smpleWidth
+print "Sampled at %i" %frameRate
+print "Number of frames %i" %numFrames
+print "Duration: %f seconds" %length 
+print "Compression %s" %compName
+print "Compression type %s\n" %compType 
+
+frameCut = []
+
+
+for i in range(w.getnframes()):
+
+	frames = w.readframes(1)
+
+	silence = True
+	
+	for i in range(len(frames)-1):
+		if ord(frames[i]) != ord(frames[i+1]):
+			silence = False
+			break
+
+	if silence:
+		#print "Audio start at frame number: %i" %w.tell()
+		frameCut.append(w.tell())
+
+print 'Extracting from sample %i to sample %i' %(frameCut[0] ,frameCut[-1])
+
+sliceWav.slice(f,w,frameCut[0],frameCut[-1])
