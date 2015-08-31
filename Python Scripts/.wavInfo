@@ -48,6 +48,7 @@ for i in range(w.getnframes()):
 print 'Extracting from sample %i to sample %i' %(frameCut[0] ,frameCut[-1])
 
 sliceWav.slice(f,w,frameCut[0],frameCut[-1])
+
 bpm.getbpm('cutted_'+f)
 bpm.gettempo('cutted_'+f)
 bpm.gettempoessentia('cutted_'+f)
