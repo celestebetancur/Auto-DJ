@@ -43,7 +43,6 @@ for i in range(w.getnframes()):
 			break
 
 	if silence:
-		#print "Audio start at frame number: %i" %w.tell()
 		frameCut.append(w.tell())
 
 print 'Extracting from sample %i to sample %i' %(frameCut[0] ,frameCut[-1])
